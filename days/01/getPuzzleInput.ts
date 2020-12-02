@@ -2,12 +2,12 @@ import data from "./data";
 
 var expenses = data.toString().split("\n");
 
-const equals20 = (a: number, b: number) => {
-  return a + b === 2020;
+const equals20 = (a: number, b: number, c: number) => {
+  return a + b + c === 2020;
 };
 
-const getAnswer = (a: number, b: number) => {
-  return a * b;
+const getAnswer = (a: number, b: number, c: number) => {
+  return a * b * c;
 };
 
 const getPuzzleInput = (): number => {
@@ -15,12 +15,15 @@ const getPuzzleInput = (): number => {
 
   expenses.forEach((expense) => {
     expenses.forEach((nextExpense) => {
-      const firstExpense = parseInt(expense);
-      const secondExpense = parseInt(nextExpense);
+      expenses.forEach((nextNextExpense) => {
+        const firstExpense = parseInt(expense);
+        const secondExpense = parseInt(nextExpense);
+        const thirdExpense = parseInt(nextNextExpense);
 
-      if (equals20(firstExpense, secondExpense)) {
-        total = getAnswer(firstExpense, secondExpense);
-      }
+        if (equals20(firstExpense, secondExpense, thirdExpense)) {
+          total = getAnswer(firstExpense, secondExpense, thirdExpense);
+        }
+      });
     });
   });
 
