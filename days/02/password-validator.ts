@@ -1,8 +1,20 @@
 import data from "./data";
 
-const isValidPassword = (policy: string, count: number) => {
-  const [low, high] = policy.split("-");
-  return count >= Number(low) && count <= Number(high);
+const isValidPassword = (
+  policy: string,
+  character: string,
+  password: string
+) => {
+  const [p1, p2] = policy.split("-");
+  const positionOne = Number(p1) - 1;
+  const positionTwo = Number(p2) - 1;
+
+  return (
+    (password[positionOne] === character &&
+      password[positionOne] !== password[positionTwo]) ||
+    (password[positionTwo] === character &&
+      password[positionTwo] !== password[positionOne])
+  );
 };
 
 const passwordValidator = (): number => {
@@ -16,12 +28,7 @@ const passwordValidator = (): number => {
 
     const [policy, character, password] = item.replace(":", "").split(" ");
 
-    let count: number = 0;
-    for (let letter of password.split("")) {
-      letter === character ? count++ : null;
-    }
-
-    if (isValidPassword(policy, count)) {
+    if (isValidPassword(policy, character, password)) {
       validPasswordsCount++;
     }
   });
