@@ -1,7 +1,7 @@
-import { traverseMap } from "./map-traverse";
+import { calculateTotalTrees } from "./map-traverse";
 
 test("should find correct number of trees encountered traversing the map", () => {
-  const trees = traverseMap();
+  const trees = calculateTotalTrees();
 
-  expect(trees).toEqual(162);
+  expect(trees).toEqual(3064612320);
 });

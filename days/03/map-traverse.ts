@@ -1,22 +1,32 @@
-import data from "./data";
+import { data, slopes } from "./data";
 
-const traverseMap = (): number => {
-  let lines = data.split("\n");
-  let trees = 0;
-  let col = 0;
+const traverseMap = (map, slope): number => {
+  let trees: number = 0;
+  let row: number = 0;
+  let col: number = 0;
 
-  lines.forEach((line) => {
-    if (line.length === 0) {
-      return;
-    }
+  while (row < map.length - 2) {
+    col = col += slope.right;
+    row = row += slope.down;
 
-    if (line[col % 31] == "#") {
+    if (map[row][col % 31] === "#") {
       trees++;
     }
-    col += 3;
-  });
-
+  }
   return trees;
 };
 
-export { traverseMap };
+const calculateTotalTrees = () => {
+  const map = data.split("\n");
+  map.shift();
+  let totalTrees = [];
+
+  slopes.forEach((slope) => {
+    const treesOnSlope = traverseMap(map, slope);
+    totalTrees.push(treesOnSlope);
+  });
+
+  return totalTrees.reduce((a, b) => a * b);
+};
+
+export { calculateTotalTrees };
